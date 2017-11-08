@@ -1,0 +1,66 @@
+<html>
+    <head>
+    </head>
+    <body>
+        Maximum: <input type="number" id="max" value="100" />
+        <input type="button" id="go-fast" value="Go Fast" />
+        <input type="button" id="go-slow" value="Go Slow" />
+        <div id="output"></div>
+        <script type="text/javascript">
+            document.getElementById('go-fast').onclick = fizzBuzzNow;
+            document.getElementById('go-slow').onclick = fizzBuzzSlow;
+            var output = document.getElementById('output');
+
+            function fizzBuzzNow() {
+                var max = getMax();
+                clearOutput();
+                output.innerHTML = fizzBuzz(1, max);
+            }
+
+            function fizzBuzz(start, stop) {
+                var result = "";
+                for (var i = start; i <= stop; i++) {
+                    result = result + fizzBuzzOne(i) + "<br/>";
+                }
+                return result;
+            }
+
+            function fizzBuzzOne(number) {
+                if (isDivisibleBy(number, 15)) {
+                    return "FizzBuzz";
+                } else if (isDivisibleBy(number, 3)) {
+                    return "Fizz";
+                } else if (isDivisibleBy(number, 5)) {
+                    return "Buzz";
+                } else {
+                    return number + '';
+                }
+            }
+
+            function isDivisibleBy(number, multiple) {
+                return number % multiple === 0;
+            }
+
+            function fizzBuzzSlow() {
+                clearOutput();
+                var max = getMax();
+                var current = 0;
+                var intervalId = setInterval(function() {
+                    current++; 
+                    output.innerHTML = output.innerHTML + fizzBuzzOne(current) + "<br/>";
+                    if (current >= max) {
+                        clearInterval(intervalId);
+                    }
+                }, 500);
+            }
+
+            function clearOutput() {
+                document.getElementById('output').innerHTML = "";
+            }
+
+            function getMax() {
+                return document.getElementById("max").value;
+            }
+        </script>
+    </body>
+</html>
